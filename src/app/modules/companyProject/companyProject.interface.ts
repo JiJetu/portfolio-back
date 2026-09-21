@@ -1,12 +1,10 @@
-export interface IProject {
+export interface ICompanyProject {
   title: string;
+  companyName?: string;
   description: string;
   technology: string;
   projectImg: string;
   images?: string[];
-  github?: string;
-  github2?: string;
   liveLink?: string;
   isDeleted?: boolean;
 }
-

@@ -9,6 +9,10 @@ const router = express.Router();
 
 router.get("/", ProjectControllers.getAllProjects);
 
+router.get("/stats", ProjectControllers.getProjectStats);
+
+router.get("/deleted", auth(UserRole.admin), ProjectControllers.getDeletedProjects);
+
 router.get("/:id", ProjectControllers.getProjectById);
 
 router.post(
@@ -25,6 +29,11 @@ router.put(
   ProjectControllers.updateProject
 );
 
+router.patch("/:id/restore", auth(UserRole.admin), ProjectControllers.restoreProject);
+
 router.delete("/:id", auth(UserRole.admin), ProjectControllers.deleteProject);
 
+router.delete("/:id/permanent", auth(UserRole.admin), ProjectControllers.permanentDeleteProject);
+
 export const ProjectRoutes = router;
+

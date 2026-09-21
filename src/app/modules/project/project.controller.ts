@@ -25,6 +25,17 @@ const getAllProjects = catchAsync(async (req, res) => {
   });
 });
 
+const getDeletedProjects = catchAsync(async (req, res) => {
+  const projects = await ProjectServices.getDeletedProjects();
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Deleted projects retrieved successfully",
+    data: projects,
+  });
+});
+
 const getProjectById = catchAsync(async (req, res) => {
   const { id } = req.params;
   const project = await ProjectServices.getProjectById(id);
@@ -61,10 +72,50 @@ const deleteProject = catchAsync(async (req, res) => {
   });
 });
 
+const restoreProject = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const project = await ProjectServices.restoreProject(id);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Project restored successfully",
+    data: project,
+  });
+});
+
+const permanentDeleteProject = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const project = await ProjectServices.permanentDeleteProject(id);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Project permanently deleted successfully",
+    data: project,
+  });
+});
+
+const getProjectStats = catchAsync(async (req, res) => {
+  const stats = await ProjectServices.getCombinedStats();
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Project statistics retrieved successfully",
+    data: stats,
+  });
+});
+
 export const ProjectControllers = {
   createProject,
   getAllProjects,
+  getDeletedProjects,
+  getProjectStats,
   getProjectById,
   updateProject,
   deleteProject,
+  restoreProject,
+  permanentDeleteProject,
 };
+

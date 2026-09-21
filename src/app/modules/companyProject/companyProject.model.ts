@@ -1,11 +1,16 @@
 import { Schema, model } from "mongoose";
-import { IProject } from "./project.interface";
+import { ICompanyProject } from "./companyProject.interface";
 
-const ProjectSchema = new Schema<IProject>(
+const CompanyProjectSchema = new Schema<ICompanyProject>(
   {
     title: {
       type: String,
       required: true,
+      trim: true,
+    },
+    companyName: {
+      type: String,
+      default: "",
       trim: true,
     },
     description: {
@@ -24,19 +29,10 @@ const ProjectSchema = new Schema<IProject>(
       type: [String],
       default: [],
     },
-    github: {
-      type: String,
-      default: "",
-    },
-    github2: {
-      type: String,
-      default: "",
-    },
     liveLink: {
       type: String,
       default: "",
     },
-
     isDeleted: {
       type: Boolean,
       default: false,
@@ -47,4 +43,7 @@ const ProjectSchema = new Schema<IProject>(
   }
 );
 
-export const Projects = model<IProject>("Projects", ProjectSchema);
+export const CompanyProjects = model<ICompanyProject>(
+  "CompanyProjects",
+  CompanyProjectSchema
+);
